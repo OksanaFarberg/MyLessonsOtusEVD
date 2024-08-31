@@ -3,10 +3,10 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  
   "exclude": [
     "node_modules"
   ],
+  "type": "module",
   "scripts": {
     "start": "babel-node src/main.js",
     "format:ci": "prettier . --check",
@@ -17,7 +17,8 @@
     "codestyle": "run-s lint format",
     "build": "babel src --out-dir build --source-maps inline",
     "test": "jest --verbose",
-    "coverage": "jest --coverage"
+    "coverage": "jest --coverage",
+    "prepare": "husky"
   },
   "author": "Damir Rysaev <freepad@ya.ru>",
   "keywords": [],
@@ -41,6 +42,7 @@
     "prettier": "^3.2.5"
   },
   "dependencies": {
+    "husky": "^9.1.5",
     "node-fetch": "^2.7.0"
   }
 }
