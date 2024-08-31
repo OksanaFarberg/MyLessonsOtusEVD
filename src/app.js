@@ -54,8 +54,8 @@ const scores = {
 
 function getScore(obj) {
   let sum = 0
-  for (let kluch in obj) {
-    sum += obj[kluch];
+  for (const kluch in obj) {
+    sum += obj[kluch]
   }
   console.log(sum)
 }
@@ -69,10 +69,10 @@ getScore(scores) // 16
  * @returns {number}
  */
 function getScore2(obj) {
-  // Берем все значения из объекта и суммируем,сумму кладем в переменную sum 
+  // Берем все значения из объекта и суммируем,сумму кладем в переменную sum
   const sum = Object.values(obj).reduce((acc, item) => {
     return acc + item
-  },0)
-  console.log(sum);
+  }, 0)
+  console.log(sum)
 }
 getScore2(scores) // 16

@@ -1,9 +1,9 @@
-const key_agewq = 'afdreee'
+const keyAgewq = 'afdreee'
 
 const firstObj = {
   name: 'OKsa',
   age: 181,
-  [key_agewq]: 2900,
+  [keyAgewq]: 2900,
   rerere: 'quququ',
   roles: ['mentor', 'tescher'],
   greet: function () {
@@ -26,7 +26,7 @@ const newObj2 = Object.assign({}, firstObj);
 // создали новый объект и в него записали все ключ-значения
 const newObj45 = { ... firstObj};
 console.log(newObj2); 
-// console.log(newObj45);
+console.log(newObj45);
   
 
 /* const name = firstObj.name
@@ -41,7 +41,7 @@ console.log(qrest);
 
 if('sociales' in firstObj) console.log('22sociales');
 
-for(let kluch in firstObj) {
+for(const kluch in firstObj) {
    // console.log(`свойство: ${kluch}, value: ${firstObj[kluch]}`);
     console.log(firstObj[kluch]);
 }

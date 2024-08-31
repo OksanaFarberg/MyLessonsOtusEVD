@@ -6,7 +6,6 @@
   "exclude": [
     "node_modules"
   ],
-  "type": "module",
   "scripts": {
     "start": "babel-node src/main.js",
     "format:ci": "prettier . --check",
