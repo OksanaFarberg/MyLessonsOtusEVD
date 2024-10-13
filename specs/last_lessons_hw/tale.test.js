@@ -1,4 +1,4 @@
-import { kolobok, newYear } from '../src/tale'
+import { kolobok, newYear } from '../../src/tale'
 
 describe('kolobok function', () => {
   it('should return the correct response for дедушка', () => {

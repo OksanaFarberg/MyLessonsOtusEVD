@@ -1,4 +1,4 @@
-import { getTotal, nameIsValid, fullTrim } from '../src/app.js'
+import { getTotal, nameIsValid, fullTrim } from '../../src/app.js'
 
 // проверю что функции заимпортировались корректно
 
