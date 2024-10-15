@@ -8,6 +8,15 @@ const userID = '5a220e38-de85-4c40-ae4d-73c09f902c48';
 let token;
 
 const user = {
+  create: ({ userName, password }) => {
+    return supertest(url)
+      .post('/Account/v1/User')
+      .send({
+        userName,
+        password
+      })
+  },
+
   token: payload => {
     return supertest(url)
       .post('/Account/v1/GenerateToken')
@@ -31,12 +40,12 @@ const user = {
       .send(payload)
   },
 
-  delete: payload => {
+  delete: ({ userId, token }) => {
     return supertest(url)
-      .delete('/Account/v1/User/' + `${userID}`)
+      .delete(`/Account/v1/User/${userId}`)
       .set('Accept', 'application/json')
       .set('Authorization', `Bearer ${token}`)
-      .send(payload)
+      .send()
   },
 }
 

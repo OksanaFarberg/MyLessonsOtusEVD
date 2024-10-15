@@ -38,7 +38,21 @@ describe('Получение информации о пользователе', 
 
 describe('Удаление пользователя', () => {
   test('Успешное удаление', async () => {
-    const res = await user.delete(config.credential)
-    expect(res.status).toBe(204)
+    const username = 'oksana_user_delete0@test.net'
+    const password = 'P@ssw0rd' 
+    const responseCreate = await user.create({
+      userName: username,
+      password
+    })
+    const responseToken = await user.token({
+      userName: username,
+      password
+    })
+    const responseDelete = await user.delete({
+      userId: responseCreate.body.userID,
+      token: responseToken.body.token
+    })
+    expect(responseDelete.status).toBe(204)
+    // можно как вариант ещё попробовать авторизоваться, чтобы убедиться, что пользователь точно удалён
   })
 })
