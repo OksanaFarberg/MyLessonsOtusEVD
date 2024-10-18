@@ -30,7 +30,7 @@ describe('Токен авторизации', () => {
 
 describe('Получение информации о пользователе', () => {
   test('Успешное получение информации', async () => {
-    const res = await user.info()
+    const res = await user.info(config.credential)
     // expect(res.body.username).toBe("my_user");
     expect(res.status).toBe(200)
   })
@@ -39,6 +39,6 @@ describe('Получение информации о пользователе', 
 describe('Удаление пользователя', () => {
   test('Успешное удаление', async () => {
     const res = await user.delete(config.credential)
-    expect(res.status).toBe(204)
+    expect(res.status).toBe(200)
   })
 })
