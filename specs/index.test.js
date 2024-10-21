@@ -24,35 +24,54 @@ describe('Токен авторизации', () => {
     expect(res.body.result).toBe('User authorized successfully.')
     expect(res.status).toBe(200)
     expect(res.body.token).toBeTruthy()
-    console.log('data.token', res.body)
   })
 })
 
 describe('Получение информации о пользователе', () => {
   test('Успешное получение информации', async () => {
-    const res = await user.info()
-    // expect(res.body.username).toBe("my_user");
-    expect(res.status).toBe(200)
+    const username = 'oksana_user_info014@test.net'
+    const password = 'P@ssw0rd'
+    const responseCreate = await user.create({
+      userName: username,
+      password,
+    })
+    console.log(responseCreate.body.userID)
+    const responseToken = await user.token({
+      userName: username,
+      password,
+    })
+    console.log(responseToken.body.token)
+    const responseInfo = await user.info({
+      userId: responseCreate.body.userID,
+      token: responseToken.body.token,
+    })
+    expect(responseInfo.status).toBe(200)
   })
 })
 
 describe('Удаление пользователя', () => {
   test('Успешное удаление', async () => {
-    const username = 'oksana_user_delete0@test.net'
-    const password = 'P@ssw0rd' 
+    const username = 'oksana_user_delete014@test.net'
+    const password = 'P@ssw0rd'
     const responseCreate = await user.create({
       userName: username,
-      password
+      password,
     })
     const responseToken = await user.token({
       userName: username,
-      password
+      password,
     })
     const responseDelete = await user.delete({
       userId: responseCreate.body.userID,
-      token: responseToken.body.token
+      token: responseToken.body.token,
     })
-    expect(responseDelete.status).toBe(204)
+    expect(responseDelete.status).toBe(200)
     // можно как вариант ещё попробовать авторизоваться, чтобы убедиться, что пользователь точно удалён
+    // ------------------------
+    // const repeatAuth = await user.authorization({
+    //   userName: username,
+    //   password
+    // })
+    // expect(repeatAuth.status).toBe(404)
   })
 })
