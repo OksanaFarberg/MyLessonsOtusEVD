@@ -3,9 +3,6 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "exclude": [
-    "node_modules"
-  ],
   "scripts": {
     "start": "babel-node src/main.js",
     "format:ci": "prettier . --check",
@@ -19,7 +16,7 @@
     "coverage": "jest --coverage",
     "prepare": "husky"
   },
-  "author": "Damir Rysaev <freepad@ya.ru>",
+  "author": "Oksana EVD",
   "keywords": [],
   "license": "ISC",
   "devDependencies": {

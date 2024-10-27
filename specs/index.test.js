@@ -1,6 +1,20 @@
 import user from '../framework/services'
 import config from '../framework/config'
 
+// в переменные положим значения после создания пользователя
+let MyUserID = ''
+let MyToken = ''
+
+describe('Создание пользователя', () => {
+  test('Успешная создание', async () => {
+    const res = await user.create(config.credential)
+    expect(res.status).toBe(201)
+    expect(res.body.userID).toBeTruthy()
+    MyUserID = res.body.userID
+    return MyUserID
+  })
+})
+
 describe('Авторизация', () => {
   test('Успешная авторизация', async () => {
     const res = await user.authorization(config.credential)
@@ -9,8 +23,8 @@ describe('Авторизация', () => {
 
   test('Неуспешная авторизация, неверный пароль', async () => {
     const res = await user.authorization({
-      userName: 'my_user',
-      password: 'string',
+      userName: config.credential.userName,
+      password: 'string123@',
     })
     expect(res.body.code).toBe('1207')
     expect(res.body.message).toBe('User not found!')
@@ -24,26 +38,17 @@ describe('Токен авторизации', () => {
     expect(res.body.result).toBe('User authorized successfully.')
     expect(res.status).toBe(200)
     expect(res.body.token).toBeTruthy()
+    MyToken = res.body.token
+    // console.log('MyToken успешно получен, ', MyToken)
+    return MyToken
   })
 })
 
 describe('Получение информации о пользователе', () => {
   test('Успешное получение информации', async () => {
-    const username = 'oksana_user_info014@test.net'
-    const password = 'P@ssw0rd'
-    const responseCreate = await user.create({
-      userName: username,
-      password,
-    })
-    console.log(responseCreate.body.userID)
-    const responseToken = await user.token({
-      userName: username,
-      password,
-    })
-    console.log(responseToken.body.token)
     const responseInfo = await user.info({
-      userId: responseCreate.body.userID,
-      token: responseToken.body.token,
+      userId: MyUserID,
+      token: MyToken,
     })
     expect(responseInfo.status).toBe(200)
   })
@@ -51,27 +56,17 @@ describe('Получение информации о пользователе', 
 
 describe('Удаление пользователя', () => {
   test('Успешное удаление', async () => {
-    const username = 'oksana_user_delete014@test.net'
-    const password = 'P@ssw0rd'
-    const responseCreate = await user.create({
-      userName: username,
-      password,
-    })
-    const responseToken = await user.token({
-      userName: username,
-      password,
-    })
     const responseDelete = await user.delete({
-      userId: responseCreate.body.userID,
-      token: responseToken.body.token,
+      userId: MyUserID,
+      token: MyToken,
     })
-    expect(responseDelete.status).toBe(200)
-    // можно как вариант ещё попробовать авторизоваться, чтобы убедиться, что пользователь точно удалён
-    // ------------------------
-    // const repeatAuth = await user.authorization({
-    //   userName: username,
-    //   password
-    // })
-    // expect(repeatAuth.status).toBe(404)
+    expect(responseDelete.status).toBe(204)
+    const responseInfo = await user.info({
+      userId: MyUserID,
+      token: MyToken,
+    })
+    console.log(responseInfo.body)
+    expect(responseInfo.status).toBe(401)
+    expect(responseInfo.body.message).toBe('User not found!')
   })
 })
